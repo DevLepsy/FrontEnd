@@ -27,4 +27,20 @@ async function fetchCategories() {
   return response.json();
 }
 
-export { fetchProjects, fetchCategories };
+async function login(email, password) {
+  const response = await fetch(
+    API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.LOGIN,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    }
+  );
+
+  if (!response.ok) {
+    return "failure";
+  }
+  return response.json();
+}
+
+export { fetchProjects, fetchCategories, login };
