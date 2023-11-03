@@ -1,7 +1,5 @@
 import { gallery } from "./variables.js";
 
-let currentProjects = [];
-
 function filterProjects(projects, category) {
   if (category === "Tous") {
     return projects;
