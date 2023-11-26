@@ -1,4 +1,5 @@
 let loginForm = document.querySelector(".loginForm");
+// @ts-ignore
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   connection();
@@ -6,8 +7,10 @@ loginForm.addEventListener("submit", (event) => {
 
 async function connection() {
   try {
+    // @ts-ignore
     const email = document.getElementById("loginEmail").value;
     validateEmail(email);
+    // @ts-ignore
     const password = document.getElementById("loginPassword").value;
 
     await performLogin(email, password);
@@ -58,8 +61,10 @@ function createErrorMessageElement() {
   const loginPassword = document.getElementById("loginPassword");
   const pErrorMessage = document.createElement("p");
   pErrorMessage.id = "errorMessage";
+  // @ts-ignore
   loginPassword.parentNode.insertBefore(
     pErrorMessage,
+    // @ts-ignore
     loginPassword.nextSibling
   );
   return pErrorMessage;

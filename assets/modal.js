@@ -9,18 +9,25 @@ function displayHideElement(element) {
 // display or hide modalSection
 function displayHideModal() {
   const divEditionGallery = document.getElementById("divEditionGallery");
+  // @ts-ignore
   divEditionGallery.addEventListener("click", function () {
+    // @ts-ignore
     displayHideElement(modalSection);
   });
 
+  // @ts-ignore
   modalSection.addEventListener("click", (event) => {
     //if click it's ONLY on the backgound's modal : close it.
+    // @ts-ignore
     if (event.target === modalSection) {
+      // @ts-ignore
       displayHideElement(modalSection);
     }
   });
   //if click top-left cross : close modal.
+  // @ts-ignore
   modalCrossClose.addEventListener("click", () =>
+    // @ts-ignore
     displayHideElement(modalSection)
   );
 }
@@ -28,16 +35,24 @@ function displayHideModal() {
 //Navigation in the modal.
 function modalNavigation() {
   //if click on "ajouter une photo" button: navigate to "ajout photo"
+  // @ts-ignore
   modalButtonAddPicture.addEventListener("click", () => {
+    // @ts-ignore
     displayHideElement(modalEditionGallery);
+    // @ts-ignore
     displayHideElement(modalAddProject);
+    // @ts-ignore
     displayHideElement(modalArrowReturn);
   });
 
   //if click on arrowLeft: return to "edition gallery"
+  // @ts-ignore
   modalArrowReturn.addEventListener("click", () => {
+    // @ts-ignore
     displayHideElement(modalEditionGallery);
+    // @ts-ignore
     displayHideElement(modalAddProject);
+    // @ts-ignore
     displayHideElement(modalArrowReturn);
   });
 }
@@ -48,7 +63,9 @@ async function modalGenerateWorks() {
   // console.log("init ModalgenerationWorks");
   await fetchWorks();
 
+  // @ts-ignore
   modalGallery.innerHTML = "";
+  // @ts-ignore
   works.forEach(function (work) {
     const workElement = document.createElement("figure");
     const imageWork = document.createElement("img");
@@ -80,6 +97,7 @@ async function modalGenerateWorks() {
     workElement.appendChild(dragWork);
     workElement.appendChild(trashWork);
 
+    // @ts-ignore
     modalGallery.appendChild(workElement);
   });
 }
@@ -88,21 +106,30 @@ async function modalGenerateWorks() {
 
 //preview picture in "Ajout photo" :
 function previewPicture() {
+  // @ts-ignore
   sendPicture.addEventListener("change", () => {
     //fetch files info.
+    // @ts-ignore
     let curFile = sendPicture.files;
     validTypeSize(curFile);
     if (validTypeSize(curFile)) {
+      // @ts-ignore
       modalPreviewImg.src = URL.createObjectURL(curFile[0]);
 
       //hide
+      // @ts-ignore
       displayHideElement(modalPreviewNoPicture);
+      // @ts-ignore
       displayHideElement(modalPreviewInputPicture);
+      // @ts-ignore
       displayHideElement(modalPreviewP);
       //display
+      // @ts-ignore
       displayHideElement(modalPreviewImg);
 
+      // @ts-ignore
       modalPreviewP.innerText = "jpg, png : 4mo max";
+      // @ts-ignore
       modalPreviewP.style.color = "#444";
       validateFormGreen();
     }
@@ -111,20 +138,27 @@ function previewPicture() {
 
 function resetPicture() {
   //display
+  // @ts-ignore
   displayHideElement(modalPreviewNoPicture);
+  // @ts-ignore
   displayHideElement(modalPreviewInputPicture);
+  // @ts-ignore
   displayHideElement(modalPreviewP);
   //hide
+  // @ts-ignore
   displayHideElement(modalPreviewImg);
 
   // clear input.
+  // @ts-ignore
   sendPicture.value = null;
+  // @ts-ignore
   modalPreviewImg.src = "";
   validateFormGreen();
 }
 
 // reset picture when you click on it.
 function clickResetPicture() {
+  // @ts-ignore
   modalPreviewImg.addEventListener("click", () => {
     resetPicture();
   });
@@ -134,25 +168,32 @@ function clickResetPicture() {
 //clear all input
 function clearForm() {
   resetPicture();
+  // @ts-ignore
   pictureTitle.value = "";
+  // @ts-ignore
   pictureCategorie.value = 1;
 }
 
 //categories list in form
 async function initCategorieSelect() {
   await fetchCategories();
+  // @ts-ignore
   for (let i = 0; i < categories.length; i++) {
+    // @ts-ignore
     const categorie = categories[i];
     const newcategorieSelect = document.createElement("option");
     newcategorieSelect.value = categorie.id;
     newcategorieSelect.innerText = categorie.name;
+    // @ts-ignore
     pictureCategorie.appendChild(newcategorieSelect);
   }
 }
 
 //******* INPUT VALIDATION **********//
 function validType(curFile) {
+  // @ts-ignore
   for (let i = 0; i < fileTypes.length; i++) {
+    // @ts-ignore
     if (curFile[0].type === fileTypes[i]) {
       return true;
     }
@@ -163,6 +204,7 @@ function validType(curFile) {
 }
 
 function validSize(curFile) {
+  // @ts-ignore
   if (curFile[0].size <= maxSize) {
     return true;
   }
@@ -181,12 +223,15 @@ function validTypeSize(curFile) {
 }
 
 function errorMessage(message) {
+  // @ts-ignore
   modalPreviewP.innerText = message;
+  // @ts-ignore
   modalPreviewP.style.color = "red";
 }
 
 //listener on text input for update the validate button
 function EventListenerTextInput() {
+  // @ts-ignore
   pictureTitle.addEventListener("input", () => {
     validateFormGreen();
   });
@@ -195,23 +240,33 @@ function EventListenerTextInput() {
 // Form validate -> bouton turn on and green
 function validateFormGreen() {
   if (
+    // @ts-ignore
     !modalPreviewImg.classList.contains("hidden") &&
+    // @ts-ignore
     !(pictureTitle.value === "") &&
+    // @ts-ignore
     !(pictureCategorie.value === "")
   ) {
+    // @ts-ignore
     modalValidateButton.style.backgroundColor = "#1D6154";
+    // @ts-ignore
     modalValidateButton.style.cursor = "pointer";
+    // @ts-ignore
     modalValidateButton.disabled = false;
   } else {
     //button disabled
+    // @ts-ignore
     modalValidateButton.style.backgroundColor = "#A7A7A7";
+    // @ts-ignore
     modalValidateButton.style.cursor = "auto";
+    // @ts-ignore
     modalValidateButton.disabled = true;
   }
 }
 
 //******** FUNCTIONALITIES **********//
 async function addWorks() {
+  // @ts-ignore
   modalForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -219,8 +274,11 @@ async function addWorks() {
     // console.log(token);
 
     const newWork = new FormData();
+    // @ts-ignore
     newWork.append("image", sendPicture.files[0]);
+    // @ts-ignore
     newWork.append("title", pictureTitle.value);
+    // @ts-ignore
     newWork.append("category", pictureCategorie.value);
 
     // console.log("envoie");
@@ -231,6 +289,7 @@ async function addWorks() {
       },
       body: newWork,
     })
+      // @ts-ignore
       .then((response) => {
         //update galleries
         generateAllWorks();
@@ -238,8 +297,11 @@ async function addWorks() {
         //reset form:
         clearForm();
         //return on gallery modal:
+        // @ts-ignore
         displayHideElement(modalEditionGallery);
+        // @ts-ignore
         displayHideElement(modalAddProject);
+        // @ts-ignore
         displayHideElement(modalArrowReturn);
       })
       .catch((error) => console.log(error));
@@ -254,6 +316,7 @@ async function delWork(workId) {
       Authorization: `Bearer ${token}`,
     },
   })
+    // @ts-ignore
     .then((response) => {
       generateAllWorks();
       modalGenerateWorks();
