@@ -7,6 +7,7 @@ async function fetchWorks() {
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des travaux");
     }
+    // @ts-ignore
     works = await response.json();
   } catch (error) {
     console.error("Erreur lors de la récupération des travaux:", error);
@@ -20,6 +21,7 @@ async function fetchCategories() {
     if (!response.ok) {
       throw new Error("Erreur lors de la récupération des catégories");
     }
+    // @ts-ignore
     categories = await response.json();
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories:", error);
@@ -38,6 +40,7 @@ async function categoriesFilters() {
   await fetchCategories();
   createCategoryButton(0, "Tous"); // Category "All"
 
+  // @ts-ignore
   categories.forEach((category) => {
     createCategoryButton(category.id, category.name);
   });
@@ -47,6 +50,7 @@ function createCategoryButton(id, text) {
   const button = document.createElement("button");
   button.dataset.id = id;
   button.textContent = text;
+  // @ts-ignore
   filters.appendChild(button);
   addListenerToCategoryButton(button);
 }
@@ -58,24 +62,30 @@ function addListenerToCategoryButton(button) {
     );
     removeClass(btnCategoriesElements, "selected");
     createTableCategorieWorks(event.target.dataset.id);
+    // @ts-ignore
     generateWorks(categoryWorks);
     event.target.classList.add("selected");
   });
 }
 
 function createTableCategorieWorks(idCategorie) {
+  // @ts-ignore
   categoryWorks =
     idCategorie == 0
-      ? works
-      : works.filter((work) => work.categoryId == idCategorie);
+      ? // @ts-ignore
+        works
+      : // @ts-ignore
+        works.filter((work) => work.categoryId == idCategorie);
 }
 
 async function generateAllWorks() {
   await fetchWorks();
+  // @ts-ignore
   generateWorks(works);
 }
 
 function generateWorks(worksArray) {
+  // @ts-ignore
   gallery.innerHTML = "";
   worksArray.forEach((work) => appendWorkToGallery(work));
 }
@@ -89,6 +99,7 @@ function appendWorkToGallery(work) {
   titleWork.innerText = work.title;
 
   workElement.append(imageWork, titleWork);
+  // @ts-ignore
   gallery.appendChild(workElement);
 }
 
@@ -96,10 +107,14 @@ function appendWorkToGallery(work) {
 
 function logout() {
   let login = document.getElementById("login");
+  // @ts-ignore
   login.innerText = "logout";
+  // @ts-ignore
   login.href = "./index.html";
+  // @ts-ignore
   login.addEventListener("click", () => {
     localStorage.removeItem("User");
+    // @ts-ignore
     displayHideElement(filters);
   });
 }
@@ -129,15 +144,25 @@ function setupAdminInterface() {
   );
 
   logout();
+  // @ts-ignore
   displayHideElement(filters);
+  // @ts-ignore
   modalGenerateWorks();
+  // @ts-ignore
   displayHideModal();
+  // @ts-ignore
   modalNavigation();
+  // @ts-ignore
   previewPicture();
+  // @ts-ignore
   clickResetPicture();
+  // @ts-ignore
   initCategorieSelect();
+  // @ts-ignore
   validateFormGreen();
+  // @ts-ignore
   EventListenerTextInput();
+  // @ts-ignore
   addWorks();
 }
 
